@@ -19,13 +19,9 @@ public class CategoriaModel {
     @Column(name = "descricao", nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
-    @Column(name = "categoria", nullable = false, length = 100)
-    private String categoria;
-
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("categoria") // Evita o loop recursivo
     private List<ProdutoModel> produtos;
-
 
     public Long getId() {
         return id;
@@ -49,13 +45,5 @@ public class CategoriaModel {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 }
