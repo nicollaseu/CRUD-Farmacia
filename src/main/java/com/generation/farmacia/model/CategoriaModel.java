@@ -2,6 +2,9 @@ package com.generation.farmacia.model;
 
 import jakarta.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_categorias")
 public class CategoriaModel {
@@ -18,6 +21,11 @@ public class CategoriaModel {
 
     @Column(name = "categoria", nullable = false, length = 100)
     private String categoria;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("categoria") // Evita o loop recursivo
+    private List<ProdutoModel> produtos;
+
 
     public Long getId() {
         return id;
